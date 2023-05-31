@@ -3,11 +3,15 @@
   padding: 0;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+
 h2 {
   text-align: center;
+  margin-top: 20px;
+  margin-bottom: 10px;  
+  font-family:'Open Sans', sans-serif;
+  font-weight: bold;
 }
-
-
-
-
-
+body {
+  background-image: linear-gradient(to right, rgb(13, 143, 199), rgb(12, 197, 166));
+}

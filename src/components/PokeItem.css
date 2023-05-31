@@ -4,3 +4,7 @@
     align-content: center;
     justify-content: center;
 }
+
+.btn {
+    margin: 20px;
+}

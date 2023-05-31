@@ -7,6 +7,7 @@ const Card = (props) => {
     const [height, setHeight] = useState(null);
     const [stats, setStats] = useState(null);
     const [type, setType] = useState(null);
+    const [show, setShow] = useState(false)
 
     const knowMoreHandler = () => {
         const knowMore = async () => {
@@ -18,24 +19,35 @@ const Card = (props) => {
             setStats(data.stats);
             setType(data.types[0].type.name);
         }
-        knowMore();
+        if (!show & !weight) {
+            knowMore();
+            setTimeout(() => {
+                setShow(true);
+            },100)
+        }
+        else {
+            setShow(!show);
+        }
     }
 
     return (
-        <div className="card" style={type ? {width: '15rem', height: '20rem'} : { width: '15rem', height: '12rem' }}>
+        <div className="card" style={show ? { width: '15rem', height: '24rem' } : { width: '15rem', height: '12rem' }}>
             <div className="card-body">
                 <h6 className="card-title">{props.name}</h6>
-                <button onClick={knowMoreHandler} className="btn btn-primary">Know More</button>
-                {weight && <h6>weight - {weight}lbs</h6>}
-                {height && <h6>height - {height}cms</h6>}
-                {type && <h6>type - {type}</h6>}
-                {stats && stats.map((stat) => {
-                    return (
-                        <div key = {stat.stat.url}>
+                <button onClick={knowMoreHandler} className="btn btn-dark">Know More</button>
+                {show &&
+                    <div>
+                        <h6>weight - {weight}lbs</h6>
+                        <h6>height - {height}cms</h6>
+                        <h6>type - {type}</h6>
+                        {stats.map((stat) => {
+                            return (
+                        <div key={stat.stat.url}>
                             <h6>{stat.stat.name} - {stat.base_stat}</h6>
-                        </div>
-                    )
-                })}
+                        </div>)})
+                        }
+                    </div>
+                }
             </div>
         </div>
     )
