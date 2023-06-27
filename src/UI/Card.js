@@ -8,6 +8,7 @@ const Card = (props) => {
     const [stats, setStats] = useState(null);
     const [type, setType] = useState(null);
     const [show, setShow] = useState(false)
+    const [pic, setPic] = useState(null);
 
     const knowMoreHandler = () => {
         const knowMore = async () => {
@@ -18,11 +19,14 @@ const Card = (props) => {
             setHeight(data.height);
             setStats(data.stats);
             setType(data.types[0].type.name);
+            setPic(data.sprites.other.dream_world.front_default);
         }
         if (!show & !weight) {
             knowMore();
+            
             setTimeout(() => {
                 setShow(true);
+                console.log(pic);
             },100)
         }
         else {
@@ -31,12 +35,14 @@ const Card = (props) => {
     }
 
     return (
-        <div className="card" style={show ? { width: '15rem', height: '24rem' } : { width: '15rem', height: '12rem' }}>
+        <div className="card" style={show ? { width: '15rem', height: '34rem' } : { width: '15rem', height: '12rem' }}>
             <div className="card-body">
                 <h6 className="card-title">{props.name}</h6>
+                
                 <button onClick={knowMoreHandler} className="btn btn-dark">Know More</button>
                 {show &&
                     <div>
+                        <img src={pic} alt="" />
                         <h6>weight - {weight}lbs</h6>
                         <h6>height - {height}cms</h6>
                         <h6>type - {type}</h6>
